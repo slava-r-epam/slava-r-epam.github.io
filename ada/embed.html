@@ -8,8 +8,33 @@
     <script type="text/javascript">
         window.adaSettings = {
             parentElement: "content_frame",
-            lazy: true
+            lazy: true,
+            adaReadyCallback: ({isRolledOut}) => {
+                console.log('@@@ adaReadyCallback');
+                onAdaReady.postMessage(JSON.stringify(isRolledOut));
+            },
+            onAdaEmbedLoaded: () => {
+                console.log('@@@ onAdaEmbedLoaded');
+                adaEmbed.subscribeEvent("ada:chat_frame_timeout", (data, context) => {
+                onLoaded.postMessage(typeof data === "undefined" ? "" : JSON.stringify(data));
+                });
+            },
+            conversationEndCallback: (event) => {
+                console.log('@@@ conversationEndCallback');
+                onConversationEnd.postMessage(JSON.stringify(event));
+            },
+            toggleCallback: (isDrawerOpen) => {
+                console.log('@@@ toggleCallback');
+                onDrawerToggle.postMessage(JSON.stringify(isDrawerOpen));
+            },
+            eventCallbacks: {
+                "*": (event) => {
+                    console.log('@@@ eventCallbacks');
+                    onEvent.postMessage(JSON.stringify(event));
+                }
+            }
         };
+        console.log("init: adaSettings: " + JSON.stringify(window.adaSettings));
     </script>
 
     <script defer id="__ada" src="https://static.ada.support/embed2.js"></script>
