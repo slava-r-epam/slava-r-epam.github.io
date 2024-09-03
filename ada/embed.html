@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <script type="text/javascript">
+        function onLoadHandler() {
+            console.log('@@@ onLoadHandler');
+            onLoadCallback.postMessage();
+        }
+        
         window.adaSettings = {
             parentElement: "content_frame",
             lazy: true,
@@ -38,7 +43,8 @@
         console.log("init: adaSettings: " + JSON.stringify(window.adaSettings));
     </script>
 
-    <script defer id="__ada" src="https://static.ada.support/embed2.js"></script>
+    <script async id="__ada" src="https://static.ada.support/embed2.js" data-lazy onload="onLoadHandler()">
+    </script>
 </head>
 
 <body style="position: absolute; bottom: 0px; top: 0px; left: 0px; right: 0px; margin: 0; padding: 0;">
