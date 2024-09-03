@@ -22,6 +22,7 @@
                 console.log('@@@ onAdaEmbedLoaded');
                 onLoaded.postMessage("ready");
                 adaEmbed.subscribeEvent("ada:chat_frame_timeout", (data, context) => {
+                    console.log('@@@ chat_frame_timeout: data=' + JSON.stringify(data));
                     onLoaded.postMessage(typeof data === "undefined" ? "" : JSON.stringify(data));
                 });
             },
