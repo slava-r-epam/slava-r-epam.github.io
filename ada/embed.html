@@ -10,7 +10,7 @@
             parentElement: "content_frame",
             lazy: true,
             adaReadyCallback: ({isRolledOut}) => {
-                console.log('@@@ adaReadyCallback');
+                console.log('@@@ adaReadyCallback: isRolledOut=' + JSON.stringify(isRolledOut));
                 onAdaReady.postMessage(JSON.stringify(isRolledOut));
             },
             onAdaEmbedLoaded: () => {
@@ -21,16 +21,16 @@
                 });
             },
             conversationEndCallback: (event) => {
-                console.log('@@@ conversationEndCallback');
+                console.log('@@@ conversationEndCallback: event=' + JSON.stringify(event));
                 onConversationEnd.postMessage(JSON.stringify(event));
             },
             toggleCallback: (isDrawerOpen) => {
-                console.log('@@@ toggleCallback');
+                console.log('@@@ toggleCallback: isDrawerOpen=' + JSON.stringify(isDrawerOpen));
                 onDrawerToggle.postMessage(JSON.stringify(isDrawerOpen));
             },
             eventCallbacks: {
                 "*": (event) => {
-                    console.log('@@@ eventCallbacks');
+                    console.log('@@@ eventCallbacks: event=' + JSON.stringify(event));
                     onEvent.postMessage(JSON.stringify(event));
                 }
             }
