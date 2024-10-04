@@ -24,26 +24,26 @@
                  testMode: urlParams.get('testMode'),
                  crossWindowPersistence: urlParams.get('crossWindowPersistence'),
                  parentElement: "content_frame",
-                 lazy: false,
-                 adaReadyCallback: function(isRolledOut) {
-                   onAdaReady.postMessage(JSON.stringify(isRolledOut));
-                 },
-                 onAdaEmbedLoaded: () => {
-                   adaEmbed.subscribeEvent("ada:chat_frame_timeout", (data, context) => {
-                     onLoaded.postMessage(JSON.stringify(data));
-                   });
-                 },
-                 eventCallbacks: {
-                   "*": function(event) {
-                     onEvent.postMessage(JSON.stringify(event));
-                   }
-                 },
-                 conversationEndCallback: function(event) {
-                   onConversationEnd.postMessage(JSON.stringify(event));
-                 },
-                 toggleCallback: function(isDrawerOpen) {
-                   onDrawerToggle.postMessage(JSON.stringify(isDrawerOpen));
-                 }
+                 lazy: false
+                 // adaReadyCallback: function(isRolledOut) {
+                 //   onAdaReady.postMessage(JSON.stringify(isRolledOut));
+                 // },
+                 // onAdaEmbedLoaded: () => {
+                 //   adaEmbed.subscribeEvent("ada:chat_frame_timeout", (data, context) => {
+                 //     onLoaded.postMessage(JSON.stringify(data));
+                 //   });
+                 // },
+                 // eventCallbacks: {
+                 //   "*": function(event) {
+                 //     onEvent.postMessage(JSON.stringify(event));
+                 //   }
+                 // },
+                 // conversationEndCallback: function(event) {
+                 //   onConversationEnd.postMessage(JSON.stringify(event));
+                 // },
+                 // toggleCallback: function(isDrawerOpen) {
+                 //   onDrawerToggle.postMessage(JSON.stringify(isDrawerOpen));
+                 // }
              };
 
              console.log("adaSettings=" + JSON.stringify(window.adaSettings));
