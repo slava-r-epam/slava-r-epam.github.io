@@ -4,15 +4,52 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!--          <script type="text/javascript">
-            window.adaSettings = {
-                handle: "headspace-sandbox",
-                parentElement: "content_frame",
-                lazy: false
-            };
-        </script> -->
+         <script type="text/javascript">
+             const queryString = window.location.search;
+             console.log("queryString=" + queryString);
+             const urlParams = new URLSearchParams(queryString);
+             console.log("urlParams=" + urlParams);
+
+             window.adaSettings = {
+                 handle: urlParams.get('handle'),
+                 language: urlParams.get('language'),
+                 greeting: urlParams.get('greeting'),
+                 cluster: urlParams.get('cluster'),
+                 domain: urlParams.get('domain'),
+                 hideMask: urlParams.get('hideMask'),
+                 privateMode: urlParams.get('privateMode'),
+                 rolloutOverride: urlParams.get('rolloutOverride'),
+                 metaFields: urlParams.get('metaFields'),
+                 sensitiveMetaFields: urlParams.get('sensitiveMetaFields'),
+                 testMode: urlParams.get('testMode'),
+                 crossWindowPersistence: urlParams.get('crossWindowPersistence'),
+                 parentElement: "content_frame",
+                 lazy: false,
+                 adaReadyCallback: function(isRolledOut) {
+                   onAdaReady.postMessage(JSON.stringify(isRolledOut));
+                 },
+                 onAdaEmbedLoaded: () => {
+                   adaEmbed.subscribeEvent("ada:chat_frame_timeout", (data, context) => {
+                     onLoaded.postMessage(JSON.stringify(data));
+                   });
+                 },
+                 eventCallbacks: {
+                   "*": function(event) {
+                     onEvent.postMessage(JSON.stringify(event));
+                   }
+                 },
+                 conversationEndCallback: function(event) {
+                   onConversationEnd.postMessage(JSON.stringify(event));
+                 },
+                 toggleCallback: function(isDrawerOpen) {
+                   onDrawerToggle.postMessage(JSON.stringify(isDrawerOpen));
+                 }
+             };
+
+             console.log("adaSettings=" + JSON.stringify(window.adaSettings));
+        </script>
     
-        <script async id="__ada" src="https://static.ada.support/embed2.js"></script>
+        <script defer id="__ada" src="https://static.ada.support/embed2.js"></script>
     </head>
     
     <body style="position: absolute; bottom: 0px; top: 0px; left: 0px; right: 0px; margin: 0; padding: 0;">
